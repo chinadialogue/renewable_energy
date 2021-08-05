@@ -163,7 +163,7 @@
       width: 20px;
       height: 20px;
       border-radius: 15px;
-      background-color: #DF4C3B;
+      background-color: #007979;
       -webkit-transition: left .15s ease-out;
       transition: left .15s ease-out;
     }
@@ -201,15 +201,15 @@
     }
 
     .toggle__pointer.color4 {
-      background-color: #e7e1ef;
+      background-color: #d8b365;
     }
 
     .toggle__pointer.color5 {
-      background-color: #e7298a;
+      background-color: #8073ac;
     }
 
     .toggle__pointer.color6 {
-      background-color: #91003f;
+      background-color: #5ab4ac;
     }
 
     .toggle__pointer.colorStatus {
@@ -311,17 +311,17 @@
     }
 
     .mapboxgl-popup.color4 h3 {
-      background: #e7e1ef !important;
+      background: #d8b365 !important;
       color: #fff;
     }
 
     .mapboxgl-popup.color5 h3 {
-      background: #e7298a !important;
+      background: #8073ac !important;
       color: #fff;
     }
 
     .mapboxgl-popup.color6 h3 {
-      background: #91003f !important;
+      background: #5ab4ac !important;
       color: #fff;
     }
 
@@ -400,27 +400,27 @@
     }
 
     .button.color4 a {
-      color: #e7e1ef;
+      color: #d8b365;
     }
 
     .button.color4 {
-      border: 2px solid #e7e1ef;
+      border: 2px solid #d8b365;
     }
 
     .button.color5 a {
-      color: #e7298a;
+      color: #8073ac;
     }
 
     .button.color5 {
-      border: 2px solid #e7298a;
+      border: 2px solid #8073ac;
     }
 
     .button.color6 a {
-      color: #91003f;
+      color: #5ab4ac;
     }
 
     .button.color6 {
-      border: 2px solid #91003f;
+      border: 2px solid #5ab4ac;
     }
 
 
@@ -667,13 +667,13 @@
       -webkit-appearance: none !important;
       width: 20px;
       height: 20px;
-      background-color: #D86449;
+      background-color: #007979;
       border-radius: 30px;
       transition: all 0.5s ease;
     }
 
     input[type="range"]::-webkit-slider-thumb:hover {
-      background-color: #DF4C3B;
+      background-color: #007979;
       transition: all 0.5s ease;
       cursor: pointer;
     }
@@ -1059,6 +1059,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.14.2/d3.js"></script>
+  <script src="./data.js"></script>
   <script>
     var windowWidth = $(window).width();
     var windowHeight = $(window).height();
@@ -1195,39 +1196,27 @@
 
 
 
+    // function init() {
+
+    //   Tabletop.init({
+    //     key: 'https://docs.google.com/spreadsheets/d/1PF4teSOUHtmdHTE0DVNTqa7itPaOx_kSJ1A5W6ieQJA/edit?usp=sharing',
+    //     callback: onDataLoad,
+    //     simpleSheet: true
+    //   });
+
+    // }
+
+
+
     function init() {
-
-      Tabletop.init({
-        key: 'https://docs.google.com/spreadsheets/d/1UPxK3a81XfyUjhB_hAmPtUnZJouUXO6aMleMNL-XbR0/edit?usp=sharing',
-        callback: onDataLoad,
-        simpleSheet: true
-      });
-
-    }
-
-
-
-    function onDataLoad(data) {
 
       $('#loading').hide();
 
       data.forEach(function (row) {
 
         // to deal with null lat lon values
-        var lat;
-        var lon;
         var status;
         var capacity;
-
-        if (row.Longitude == null || row.Longitude == '') {
-          //console.log(row)
-          lon = null;
-          lat = null;
-        } else {
-          lon = +row.Longitude.split(" ").join("");
-          lat = +row.Latitude.split(" ").join("");
-        }
-
 
         if (row.Status == null || row.Status == '') {
           //console.log(row)
@@ -1258,8 +1247,8 @@
         var feature = {
           'type': 'Feature',
           'properties': {
-            'longitude': lon,
-            'latitude': lat,
+            'longitude': +row.Longitude,
+            'latitude': +row.Latitude,
             'name': row.Name,
             'country': row.Country,
             'source': row.Source,
@@ -1273,26 +1262,26 @@
           },
           'geometry': {
             'type': 'Point',
-            'coordinates': [lon, lat],
+            'coordinates': [+row.Longitude, +row.Latitude],
           }
         };//[+row.Longitude, +row.Latitude]
 
-
-
-        if (lon != null && lat != null && !isNaN(lon) && !isNaN(lat) && capacity != null) {
+        if (row.Longitude != "" && row.Latitude != "" && row.Longitude != null && row.Latitude != null) {
           geoJsonData['features'].push(feature);
         }
 
       });
 
-      $("#minCircleVal").html(`${min} MW`);
-      $("#maxCircleVal").html(`${max}+ MW`);
+
 
       min = 1;
-      max = 1700;
-      maxSlider = 1700;
+      max = 1500;
+      maxSlider = 1500;
       minCircleSize = 3;
-      maxCircleSize = 40;
+      maxCircleSize = 23;
+
+      $("#minCircleVal").html(`${min} MW`);
+      $("#maxCircleVal").html(`${max}+ MW`);
 
       map.addLayer({
         id: 'plants',
@@ -1552,10 +1541,10 @@
           map.setPaintProperty('plants', "circle-color", [
             "case",
             ["==", ["get", "status"], 'Planned'],
-            "#e7e1ef",
+            "#d8b365",
             ["==", ["get", "status"], 'Under construction'],
-            "#e7298a",
-            "#91003f"
+            "#8073ac",
+            "#5ab4ac"
           ])
 
 
@@ -1599,6 +1588,8 @@
 
 
       map.on('click', 'plants', function (e) {
+
+        console.log(e.features[0].properties);
         map.getCanvas().style.cursor = 'pointer';
 
         var latitude = e.features[0].properties.latitude;
@@ -1637,13 +1628,13 @@
           }
         } else {
           if (status == 'Planned') {
-            color = "#e7e1ef";
+            color = "#d8b365";
             popupClass = "color4"
           } else if (status == 'Under construction') {
-            color = "#e7298a";
+            color = "#8073ac";
             popupClass = "color5"
           } else {
-            color = "#91003f";
+            color = "#5ab4ac";
             popupClass = "color6"
           }
         }
@@ -1741,13 +1732,13 @@
           }
         } else {
           if (status == 'Planned') {
-            color = "#e7e1ef";
+            color = "#d8b365";
             popupClass = "color4"
           } else if (status == 'Under construction') {
-            color = "#e7298a";
+            color = "#8073ac";
             popupClass = "color5"
           } else {
-            color = "#91003f";
+            color = "#5ab4ac";
             popupClass = "color6"
           }
         }
