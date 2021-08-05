@@ -886,7 +886,8 @@
     @media screen and (max-width: 500px) {
       .mapboxgl-popup {
         transform: none !important;
-        top: 20px;
+        top: auto !important;
+        bottom: 20px !important;
         left: 0;
         right: 0;
         margin-left: auto;
@@ -1177,14 +1178,14 @@
       });
 
       // var consoleHeight = $("#console").height() / 2;
-      $("#toggleConsole").css("top", 310);
+      $("#toggleConsole").css("top", 240);
 
       if (medium) {
-        $("#toggleConsole").css("top", 280);
+        $("#toggleConsole").css("top", 210);
       }
 
       if (mobile) {
-        $("#toggleConsole").css("top", 180);
+        $("#toggleConsole").css("top", 105);
       }
 
 
