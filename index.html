@@ -907,7 +907,7 @@
       <span id="toggleConsole">
         <img src="./img/toggle.png" />
       </span>
-      <h1 id='title'>Renewable Energy Map</h1>
+      <h1 id='title'></h1>
       <div class="tab-slider--nav">
         <ul class="tab-slider--tabs">
           <li class="tab-slider--trigger activeTab text" rel="tab1">Source</li>
@@ -1176,16 +1176,14 @@
         $("#console").toggleClass("active");
         $("#toggleConsole img").toggleClass("flip");
       });
-
-      // var consoleHeight = $("#console").height() / 2;
-      $("#toggleConsole").css("top", 240);
+      $("#toggleConsole").css("top", 205);
 
       if (medium) {
-        $("#toggleConsole").css("top", 210);
+        $("#toggleConsole").css("top", 160);
       }
 
       if (mobile) {
-        $("#toggleConsole").css("top", 105);
+        $("#toggleConsole").css("top", 85);
       }
 
 
@@ -1508,14 +1506,15 @@
         }
 
         if (tab1) {
-          $("#toggleConsole").css("top", 330);
-          if (medium) {
-            $("#toggleConsole").css("top", 280);
-          }
+          $("#toggleConsole").css("top", 205);
 
-          if (mobile) {
-            $("#toggleConsole").css("top", 180);
-          }
+        if (medium) {
+          $("#toggleConsole").css("top", 160);
+        }
+
+        if (mobile) {
+          $("#toggleConsole").css("top", 85);
+        }
 
           map.setPaintProperty('plants', "circle-color", [
             "case",
@@ -1529,13 +1528,14 @@
 
         } else {
 
-          $("#toggleConsole").css("top", 310);
+          $("#toggleConsole").css("top", 205);
+
           if (medium) {
-            $("#toggleConsole").css("top", 260);
+            $("#toggleConsole").css("top", 160);
           }
 
           if (mobile) {
-            $("#toggleConsole").css("top", 170);
+            $("#toggleConsole").css("top", 85);
           }
 
 
