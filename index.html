@@ -1417,7 +1417,7 @@
 
         statusFilter = ["in", ["get", "status"], ["literal", activeStatus]];
         fuelFilter = ["in", ["get", "source"], ["literal", activeFuels]];
-        capacityFilter = ['>=', ['get', 'capacity'], 1];
+        capacityFilter = ['>=', ['get', 'capacity'], 0.02];
         map.setFilter('plants', ['all', statusFilter, fuelFilter, capacityFilter]);
         sliderValG = 1;
         $("#slider").val(1);
